@@ -81,24 +81,25 @@ Sé honesto si no puedes determinar algo con certeza desde la imagen.
 async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.ogg") -> str:
     """Transcribe audio con Whisper via Groq"""
     try:
-        transcription = groq_client.audio.transcriptions.create(
-            file=(filename, audio_bytes, "audio/ogg; codecs=opus"),
-            model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
-            language="es",
-            response_format="text"
-        )
-        return transcription
-    except Exception:
-        try:
-            transcription = groq_client.audio.transcriptions.create(
-                file=("audio.mp4", audio_bytes, "audio/mp4"),
-                model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
-                language="es",
-                response_format="text"
-            )
-            return transcription
-        except Exception as e:
-            return f"[No pude transcribir el audio: {e}]"
+        import io
+        # Whisper acepta estos formatos directamente
+        # Intentamos con el formato original primero
+        for mime in ["audio/ogg", "audio/ogg; codecs=opus", "audio/mpeg", "audio/mp4"]:
+            try:
+                transcription = groq_client.audio.transcriptions.create(
+                    file=("audio.ogg", audio_bytes, mime),
+                    model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
+                    language="es",
+                    response_format="text"
+                )
+                if transcription:
+                    return transcription
+            except Exception:
+                continue
+        return None
+    except Exception as e:
+        print(f"❌ Error transcripción: {e}")
+        return None
 
 
 
@@ -152,15 +153,21 @@ async def process_message(
     if message_type == "text":
         return await chat_with_rutaq(content, conversation_history)
     
-    elif message_type == "audio":
-        # 1. Transcribir con Whisper
-        transcribed = await transcribe_audio(content, filename or "audio.ogg")
-        # 2. Procesar texto transcrito con Llama
+   elif message_type == "audio":
+    transcribed = await transcribe_audio(content, filename or "audio.ogg")
+    if transcribed:
         response = await chat_with_rutaq(
             f"[El usuario envió una nota de voz que dice]: {transcribed}",
             conversation_history
         )
         return f"🎙️ _Escuché:_ \"{transcribed}\"\n\n{response}"
+    else:
+        # Si no puede transcribir, pedir que escriban
+        return (
+            "🎙️ No pude entender la nota de voz claramente.\n\n"
+            "¿Puedes escribirme qué documento necesitas apostillar? "
+            "Por ejemplo: *'Necesito apostillar mi partida de nacimiento'*"
+        )
     
     elif message_type == "image":
         # Analizar imagen con Gemini Vision
