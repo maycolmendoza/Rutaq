@@ -78,7 +78,27 @@ Responde en este formato exacto:
 
 Sé honesto si no puedes determinar algo con certeza desde la imagen.
 """
-
+async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.ogg") -> str:
+    """Transcribe audio con Whisper via Groq"""
+    try:
+        transcription = groq_client.audio.transcriptions.create(
+            file=(filename, audio_bytes, "audio/ogg; codecs=opus"),
+            model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
+            language="es",
+            response_format="text"
+        )
+        return transcription
+    except Exception:
+        try:
+            transcription = groq_client.audio.transcriptions.create(
+                file=("audio.mp4", audio_bytes, "audio/mp4"),
+                model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
+                language="es",
+                response_format="text"
+            )
+            return transcription
+        except Exception as e:
+            return f"[No pude transcribir el audio: {e}]"
 
 
 
