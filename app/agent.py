@@ -80,15 +80,7 @@ Sé honesto si no puedes determinar algo con certeza desde la imagen.
 """
 
 
-async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.ogg") -> str:
-    """Transcribe audio con Whisper via Groq"""
-    transcription = groq_client.audio.transcriptions.create(
-        file=(filename, audio_bytes, "audio/ogg"),
-        model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
-        language="es",
-        response_format="text"
-    )
-    return transcription
+
 
 
 async def analyze_document_image(image_bytes: bytes) -> str:
