@@ -64,8 +64,10 @@ async def receive_message(request: Request):
 
         if msg_type == "text":
             user_text = message["text"]
-            if not user_text.strip():
-                return PlainTextResponse("ok")
+        # Ignorar mensajes muy cortos o confirmaciones
+           palabras_ignorar = ["ok", "okay", "bien", "gracias", "si", "sí", "no", "ya", "dale"]
+           if not user_text.strip() or user_text.strip().lower() in palabras_ignorar:
+              return PlainTextResponse("ok")
             response = await process_message("text", user_text, conversation_history=history)
             history.append({"role": "user", "content": user_text})
             history.append({"role": "assistant", "content": response})
