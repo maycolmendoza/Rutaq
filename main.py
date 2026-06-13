@@ -53,7 +53,7 @@ async def receive_message(request: Request):
 
         message = parse_incoming_message(payload)
         if not message:
-            return PlainTextResponse("ok")
+            return PlainTextResponse("")
 
         sender = message["from"]
         msg_type = message["type"]
@@ -67,7 +67,7 @@ async def receive_message(request: Request):
         # Ignorar mensajes muy cortos o confirmaciones
             palabras_ignorar = ["ok", "okay", "bien", "gracias", "si", "sí", "no", "ya", "dale"]
             if not user_text.strip() or user_text.strip().lower() in palabras_ignorar:
-              return PlainTextResponse("ok")
+              return PlainTextResponse("")
             response = await process_message("text", user_text, conversation_history=history)
             history.append({"role": "user", "content": user_text})
             history.append({"role": "assistant", "content": response})
@@ -90,8 +90,8 @@ async def receive_message(request: Request):
         await send_text_message(sender, response)
         print(f"✅ Respuesta enviada a {sender}")
 
-        return PlainTextResponse("ok")
+        return PlainTextResponse("")
 
     except Exception as e:
         print(f"❌ Error: {e}")
-        return PlainTextResponse("ok")
+        return PlainTextResponse("")
