@@ -79,22 +79,24 @@ Responde en este formato exacto:
 Sé honesto si no puedes determinar algo con certeza desde la imagen.
 """
 async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.ogg") -> str:
-    """Transcribe audio con Whisper via Groq — convierte con pydub si es necesario"""
+    """Transcribe audio con Whisper via Groq"""
     import io
     from pydub import AudioSegment
     try:
-        # Convertir OGG/Opus a MP3 con pydub
-        audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format="ogg")
+        # Detectar formato automáticamente (ffmpeg lee el header real)
+        audio = AudioSegment.from_file(io.BytesIO(audio_bytes))
         mp3_buffer = io.BytesIO()
         audio.export(mp3_buffer, format="mp3")
         mp3_bytes = mp3_buffer.getvalue()
-        
+        print(f"🎙️ Audio convertido a MP3: {len(mp3_bytes)} bytes")
+
         transcription = groq_client.audio.transcriptions.create(
             file=("audio.mp3", mp3_bytes, "audio/mpeg"),
             model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
             language="es",
             response_format="text"
         )
+        print(f"🎙️ Transcrito: {transcription}")
         return transcription
     except Exception as e:
         print(f"❌ Error transcripción: {e}")
