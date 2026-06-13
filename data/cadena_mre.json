@@ -1,0 +1,272 @@
+{
+  "documentos": [
+    {
+      "id": 1,
+      "tipo": "Certificado de Estudios Primaria/Secundaria",
+      "palabras_clave": ["certificado estudios", "primaria", "secundaria", "educacion basica", "colegio", "escuela"],
+      "costo": 31.00,
+      "gratuito_peruanos": true,
+      "cadena": [
+        {
+          "paso": 1,
+          "entidad": "Institución Educativa o MINEDU",
+          "accion": "Obtener certificado con código modular y QR (si es digital) o firma de director y UGEL (si es tradicional)",
+          "direccion": "Tu institución educativa o MINEDU - Calle Del Comercio 193, San Borja",
+          "telefono": "(01) 224-0131",
+          "tiempo_estimado": "1-3 días hábiles",
+          "costo_paso": 0
+        },
+        {
+          "paso": 2,
+          "entidad": "Ministerio de Educación - MINEDU",
+          "accion": "Legalización por el Ministerio de Educación",
+          "direccion": "Calle Del Comercio 193, San Borja (espalda del Ministerio de Cultura)",
+          "telefono": "(01) 224-0131",
+          "tiempo_estimado": "1-2 días hábiles",
+          "costo_paso": 0
+        },
+        {
+          "paso": 3,
+          "entidad": "MRE - Dirección de Trámites Consulares",
+          "accion": "Apostilla o Legalización final",
+          "direccion": "Jr. Lampa 545, Cercado de Lima",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": 31.00
+        }
+      ],
+      "errores_frecuentes": ["Falta firma de la UGEL", "Sin código modular en certificado digital", "Documento no legalizado por MINEDU"],
+      "tiempo_total": "3-6 días hábiles",
+      "costo_total": 31.00
+    },
+    {
+      "id": 2,
+      "tipo": "Título o Grado Universitario",
+      "palabras_clave": ["titulo universitario", "grado", "bachiller", "licenciado", "magister", "doctor", "universidad", "superior universitaria", "SUNEDU"],
+      "costo": 31.00,
+      "gratuito_peruanos": true,
+      "cadena": [
+        {
+          "paso": 1,
+          "entidad": "SUNEDU",
+          "accion": "Obtener Constancia de Verificación de Datos de Autoridades o Constancia de Inscripción",
+          "direccion": "Calle Aldabas 317, Urb. Las Gardenias, Santiago de Surco",
+          "telefono": "(01) 500-3930",
+          "web": "http://enlinea.sunedu.gob.pe",
+          "tiempo_estimado": "1-2 días hábiles",
+          "costo_paso": 0,
+          "nota": "Gratuito para peruanos"
+        },
+        {
+          "paso": 2,
+          "entidad": "MRE - Dirección de Trámites Consulares",
+          "accion": "Apostilla o Legalización final",
+          "direccion": "Jr. Lampa 545, Cercado de Lima",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": 31.00
+        }
+      ],
+      "errores_frecuentes": ["No tiene Constancia de SUNEDU", "Constancia de SUNEDU vencida o con datos desactualizados", "Firma del rector no registrada en Cancillería"],
+      "tiempo_total": "2-4 días hábiles",
+      "costo_total": 31.00
+    },
+    {
+      "id": 3,
+      "tipo": "Acta de Nacimiento / Matrimonio / Defunción de Municipalidad",
+      "palabras_clave": ["acta nacimiento", "acta matrimonio", "acta defuncion", "partida nacimiento", "partida matrimonio", "municipalidad", "registro civil"],
+      "costo": 31.00,
+      "gratuito_peruanos": false,
+      "cadena": [
+        {
+          "paso": 1,
+          "entidad": "Municipalidad / Registro Civil",
+          "accion": "Obtener copia certificada por el Registrador Civil de la Municipalidad",
+          "direccion": "Municipalidad donde se registró el acta",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": "Variable según municipalidad",
+          "nota": "Vigencia no mayor a 3 meses recomendada"
+        },
+        {
+          "paso": 2,
+          "entidad": "RENIEC",
+          "accion": "Legalización por el Autenticador de firmas del RENIEC",
+          "direccion": "Oficinas RENIEC en Lima, Piura, Puno, Iquitos, Arequipa o Tacna",
+          "web": "http://www.reniec.gob.pe",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": "Variable"
+        },
+        {
+          "paso": 3,
+          "entidad": "MRE - Dirección de Trámites Consulares",
+          "accion": "Apostilla o Legalización final",
+          "direccion": "Jr. Lampa 545, Cercado de Lima",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": 31.00
+        }
+      ],
+      "errores_frecuentes": ["Falta firma y sticker del funcionario RENIEC", "Acta emitida por municipalidad en zona alejada sin autenticación RENIEC", "Vigencia mayor a 3 meses"],
+      "tiempo_total": "2-4 días hábiles",
+      "costo_total": 31.00
+    },
+    {
+      "id": 4,
+      "tipo": "Documento Notarial",
+      "palabras_clave": ["escritura publica", "poder notarial", "carta poder", "documento notarial", "notario", "protocolar", "extraprotocolar", "legalización firma notarial"],
+      "costo": 31.00,
+      "gratuito_peruanos": false,
+      "cadena": [
+        {
+          "paso": 1,
+          "entidad": "Notaría Pública",
+          "accion": "Obtener documento protocolar o extraprotocolar del Notario Público peruano",
+          "direccion": "Notaría de tu elección",
+          "tiempo_estimado": "1-2 días hábiles",
+          "costo_paso": "Variable según notaría"
+        },
+        {
+          "paso": 2,
+          "entidad": "Colegio de Notarios / Junta de Decanos",
+          "accion": "Certificación del Colegio de Notarios de la jurisdicción notarial",
+          "direccion": "Junta de Decanos: Paseo de la República 3565, Of. 801-802, San Isidro",
+          "telefono": "(01) 422-8160",
+          "web": "https://www.juntadedecanos.org.pe",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": "Variable",
+          "nota": "CRÍTICO: Sin esta firma el MRE rechaza el documento"
+        },
+        {
+          "paso": 3,
+          "entidad": "MRE - Dirección de Trámites Consulares",
+          "accion": "Apostilla o Legalización final",
+          "direccion": "Jr. Lampa 545, Cercado de Lima",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": 31.00
+        }
+      ],
+      "errores_frecuentes": ["Falta firma del Colegio de Notarios (error más frecuente)", "Documento con más de una página sin sello de unión o numeración correlativa"],
+      "tiempo_total": "3-5 días hábiles",
+      "costo_total": 31.00
+    },
+    {
+      "id": 5,
+      "tipo": "Certificado de Antecedentes Policiales",
+      "palabras_clave": ["antecedentes policiales", "record policial", "PNP", "policia"],
+      "costo": 31.00,
+      "gratuito_peruanos": false,
+      "cadena": [
+        {
+          "paso": 1,
+          "entidad": "Dirección de Criminalística - PNP",
+          "accion": "Obtener certificado original emitido por la División de Identificación Criminalística",
+          "direccion": "Av. Aramburu 550, Surquillo",
+          "telefono": "(01) 222-7364",
+          "tiempo_estimado": "1 día hábil",
+          "nota": "Debe indicar que es para viaje o uso en el extranjero"
+        },
+        {
+          "paso": 2,
+          "entidad": "MRE - Dirección de Trámites Consulares",
+          "accion": "Apostilla o Legalización final",
+          "direccion": "Jr. Lampa 545, Cercado de Lima",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": 31.00
+        }
+      ],
+      "errores_frecuentes": ["Firma del jefe del departamento no registrada en Cancillería"],
+      "tiempo_total": "1-2 días hábiles",
+      "costo_total": 31.00
+    },
+    {
+      "id": 6,
+      "tipo": "Certificado de Antecedentes Penales",
+      "palabras_clave": ["antecedentes penales", "record penal", "poder judicial", "condenas"],
+      "costo": 31.00,
+      "gratuito_peruanos": false,
+      "cadena": [
+        {
+          "paso": 1,
+          "entidad": "Registro Nacional de Condenas",
+          "accion": "Obtener certificado digital emitido por el Registro Nacional de Condenas",
+          "direccion": "Av. Abancay s/n Cdra. 5",
+          "telefono": "(01) 410-1414 anexo 12013 o 12145",
+          "tiempo_estimado": "1 día hábil"
+        },
+        {
+          "paso": 2,
+          "entidad": "MRE - Dirección de Trámites Consulares",
+          "accion": "Apostilla o Legalización final",
+          "direccion": "Jr. Lampa 545, Cercado de Lima",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": 31.00
+        }
+      ],
+      "errores_frecuentes": ["Firma del funcionario no actualizada en Cancillería"],
+      "tiempo_total": "1-2 días hábiles",
+      "costo_total": 31.00
+    },
+    {
+      "id": 7,
+      "tipo": "Certificado Médico",
+      "palabras_clave": ["certificado medico", "informe medico", "constancia medica", "medico", "salud", "EsSalud", "MINSA"],
+      "costo": 31.00,
+      "gratuito_peruanos": false,
+      "cadena": [
+        {
+          "paso": 1,
+          "entidad": "Institución de origen (MINSA / EsSalud / Colegio Médico)",
+          "accion": "Legalización según origen: firma del área MINSA, EsSalud o Decano del Colegio Médico",
+          "direcciones": {
+            "MINSA": "Av. Salaverry 801, Jesús María. Tel: (01) 315-6600",
+            "EsSalud": "Av. Arenales 1302, Jesús María. Tel: (511) 265-6000",
+            "Colegio Médico": "Av. 28 de Julio 776, Miraflores. Tel: (01) 641-9847"
+          },
+          "tiempo_estimado": "1-2 días hábiles"
+        },
+        {
+          "paso": 2,
+          "entidad": "MRE - Dirección de Trámites Consulares",
+          "accion": "Apostilla o Legalización final",
+          "direccion": "Jr. Lampa 545, Cercado de Lima",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": 31.00
+        }
+      ],
+      "tiempo_total": "2-4 días hábiles",
+      "costo_total": 31.00
+    },
+    {
+      "id": 8,
+      "tipo": "Constancia de Trabajo o Prácticas",
+      "palabras_clave": ["constancia trabajo", "practicas profesionales", "practicas preprofesionales", "carta trabajo", "experiencia laboral", "MINTRA", "ministerio trabajo"],
+      "costo": 31.00,
+      "gratuito_peruanos": false,
+      "cadena": [
+        {
+          "paso": 1,
+          "entidad": "Institución emisora",
+          "accion": "Si es institución pública: certificar por fedatario. Si es privada (menos de 3 años): legalización notarial. Si es privada (más de 3 años): certificar por Ministerio de Trabajo",
+          "direccion_mintra": "Av. Gral. Salaverry 655, Jesús María. Tel: (01) 630-6000 anexo 1066",
+          "tiempo_estimado": "1-3 días hábiles"
+        },
+        {
+          "paso": 2,
+          "entidad": "MRE - Dirección de Trámites Consulares",
+          "accion": "Apostilla o Legalización final",
+          "direccion": "Jr. Lampa 545, Cercado de Lima",
+          "tiempo_estimado": "1 día hábil",
+          "costo_paso": 31.00
+        }
+      ],
+      "tiempo_total": "2-4 días hábiles",
+      "costo_total": 31.00
+    }
+  ],
+  "info_mre": {
+    "nombre": "Ministerio de Relaciones Exteriores - Dirección de Trámites Consulares",
+    "direccion": "Jr. Lampa 545, Cercado de Lima",
+    "horario": "Lunes a viernes, 8:00 AM - 4:30 PM",
+    "costo_apostilla": 31.00,
+    "tasa_rechazo": "30% en primera presentación",
+    "documentos_mensuales": 62000,
+    "nota_gratuidad": "Ciudadanos peruanos tienen gratuidad en trámites de certificados de estudio y títulos universitarios"
+  }
+}
