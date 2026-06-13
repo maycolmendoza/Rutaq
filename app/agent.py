@@ -153,15 +153,15 @@ async def process_message(
     if message_type == "text":
         return await chat_with_rutaq(content, conversation_history)
     
-   elif message_type == "audio":
-    transcribed = await transcribe_audio(content, filename or "audio.ogg")
-    if transcribed:
+    elif message_type == "audio":
+     transcribed = await transcribe_audio(content, filename or "audio.ogg")
+     if transcribed:
         response = await chat_with_rutaq(
             f"[El usuario envió una nota de voz que dice]: {transcribed}",
             conversation_history
         )
         return f"🎙️ _Escuché:_ \"{transcribed}\"\n\n{response}"
-    else:
+     else:
         # Si no puede transcribir, pedir que escriban
         return (
             "🎙️ No pude entender la nota de voz claramente.\n\n"
