@@ -106,18 +106,22 @@ async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.ogg") -> s
 
 
 async def analyze_document_image(image_bytes: bytes) -> str:
-    """Analiza imagen de documento con Gemini Vision"""
-    model = genai.GenerativeModel("gemini-2.0-flash")
-    image_part = {
-        "mime_type": "image/jpeg",
-        "data": base64.b64encode(image_bytes).decode("utf-8")
-    }
-    response = model.generate_content([
-        SYSTEM_PROMPT_VISION,
-        image_part,
-        "Analiza este documento y dime qué tipo es y qué podría faltar para apostillarlo en el MRE del Perú."
-    ])
-    return response.text
+    """Analiza imagen de documento con Groq Vision (Llama 3.2)"""
+    img_b64 = base64.b64encode(image_bytes).decode("utf-8")
+    response = groq_client.chat.completions.create(
+        model="llama-3.2-90b-vision-preview",
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": SYSTEM_PROMPT_VISION + "\n\nAnaliza este documento para apostillar en el MRE del Perú."},
+                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{img_b64}"}}
+                ]
+            }
+        ],
+        max_tokens=1024,
+    )
+    return response.choices[0].message.content
 
 
 async def chat_with_rutaq(user_message: str, conversation_history: list = None) -> str:
