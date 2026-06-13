@@ -26,10 +26,11 @@ async def send_text_message(to: str, message: str) -> dict:
 
 
 async def download_media(media_url: str) -> bytes:
-    """Descarga imagen o audio enviado por el usuario"""
+    """Descarga imagen o audio enviado por el usuario - sigue redirects de Twilio"""
     auth = (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(follow_redirects=True, timeout=30.0) as client:
         response = await client.get(media_url, auth=auth)
+        print(f"📥 Media descargada: {len(response.content)} bytes, content-type: {response.headers.get('content-type')}")
         return response.content
 
 
