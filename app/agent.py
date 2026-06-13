@@ -109,7 +109,7 @@ async def analyze_document_image(image_bytes: bytes) -> str:
     """Analiza imagen de documento con Groq Vision (Llama 3.2)"""
     img_b64 = base64.b64encode(image_bytes).decode("utf-8")
     response = groq_client.chat.completions.create(
-        model="llama-3.2-90b-vision-preview",
+        model="meta-llama/llama-4-scout-17b-16e-instruct",
         messages=[
             {
                 "role": "user",
