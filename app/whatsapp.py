@@ -3,7 +3,7 @@ import httpx
 
 WHATSAPP_API_URL = "https://graph.facebook.com/v20.0"
 PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_NUMBER_ID")
-ACCESS_TOKEN = os.getenv("WHATSAPP_ACCESS_TOKEN")
+ACCESS_TOKEN = os.getenv("WHATSAPP_SEND_TOKEN") or os.getenv("WHATSAPP_ACCESS_TOKEN")
 
 
 async def send_text_message(to: str, message: str) -> dict:
