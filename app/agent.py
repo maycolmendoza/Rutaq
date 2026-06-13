@@ -93,7 +93,7 @@ async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.ogg") -> s
 
 async def analyze_document_image(image_bytes: bytes) -> str:
     """Analiza imagen de documento con Gemini Vision"""
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-2.0-flash")
     image_part = {
         "mime_type": "image/jpeg",
         "data": base64.b64encode(image_bytes).decode("utf-8")
