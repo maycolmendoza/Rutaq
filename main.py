@@ -31,9 +31,9 @@ BUFFER_SECONDS = 8
 
 # Palabras a ignorar
 PALABRAS_IGNORAR = {
-    "ok", "okay", "bien", "gracias", "si", "sí", "no", "ya", 
+    "ok", "okay", "bien", "gracias", "si", "sí", "no", "ya",
     "dale", "listo", "claro", "entendido", "perfecto", "bueno",
-    "hm", "ah", "aja", "ajá", "ok"
+    "hm", "ah", "aja", "ajá"
 }
 
 
@@ -52,12 +52,39 @@ async def health():
     return {"status": "ok"}
 
 
+async def procesar_imagenes_pendientes(sender: str, imagenes: list, opcion: str, history: list) -> str:
+    """Procesa imágenes según la opción elegida por el usuario"""
+    if opcion == "1":
+        await send_text_message(sender, "🔍 Analizando frente y reverso...\n⏳ Dame un momento.")
+        response_frente = await process_message("image", imagenes[0], filename="frente.jpg", conversation_history=history)
+        if len(imagenes) >= 2:
+            response_reverso = await process_message("image", imagenes[1], filename="reverso.jpg", conversation_history=history)
+            return (
+                "📄 *ANÁLISIS COMPLETO DEL DOCUMENTO*\n\n"
+                "🔼 *Cara frontal:*\n" + response_frente +
+                "\n\n━━━━━━━━━━━━━━━\n"
+                "🔽 *Cara posterior:*\n" + response_reverso
+            )
+        return response_frente
+
+    elif opcion == "2":
+        await send_text_message(sender, f"📋 Analizaré {len(imagenes)} documentos por separado...")
+        responses = []
+        for i, img in enumerate(imagenes, 1):
+            r = await process_message("image", img, filename=f"documento_{i}.jpg", conversation_history=history)
+            responses.append(f"📄 *Documento {i}:*\n{r}")
+        return "\n\n━━━━━━━━━━━━━━━\n\n".join(responses)
+
+    elif opcion == "3":
+        await send_text_message(sender, "📑 Analizando expediente...\n⏳ Dame un momento.")
+        r = await process_message("image", imagenes[0], filename="expediente.jpg", conversation_history=history)
+        return f"📑 Analicé la página principal ({len(imagenes)} páginas recibidas).\n\n{r}"
+
+    return "No entendí tu opción. Responde 1, 2 o 3."
+
+
 @app.post("/webhook")
 async def receive_message(request: Request):
-    """
-    Recibe mensajes de WhatsApp via Twilio y los procesa con RUTAQ.
-    Maneja: texto, imágenes (con buffer), audio, ubicación.
-    """
     sender = None
     try:
         body = await request.body()
@@ -81,84 +108,30 @@ async def receive_message(request: Request):
         # ── TEXTO ──────────────────────────────────────────────
         if msg_type == "text":
             user_text = message["text"].strip()
-            
-            # Detectar respuesta a la pregunta de imágenes
-        if user_text.strip() in ["1", "2", "3"] and \
-            f"{sender}_pending" in image_buffer:
-    
-            imagenes_pending = image_buffer.pop(f"{sender}_pending")
-            opcion = user_text.strip()
-    
-            if opcion == "1":
-              # Frente y reverso — analizar juntos como un solo documento
-              await send_text_message(sender,
-                 "🔍 Analizando frente y reverso de tu documento...\n⏳ Dame un momento."
-                  )
-              response_frente = await process_message(
-                        "image", imagenes_pending[0],
-                        filename="frente.jpg",
-                        conversation_history=history
-                        )
-              response_reverso = await process_message(
-                  "image", imagenes_pending[1],
-                  filename="reverso.jpg", 
-                  conversation_history=history
-                   )
-              response = (
-                    "📄 *ANÁLISIS COMPLETO DEL DOCUMENTO*\n\n"
-                    "🔼 *Cara frontal:*\n" + response_frente +
-                    "\n\n━━━━━━━━━━━━━━━\n"
-                    "🔽 *Cara posterior:*\n" + response_reverso
-                      )
-    
-            elif opcion == "2":
-             # Documentos distintos — analizar uno por uno
-              await send_text_message(sender,
-              f"📋 Analizaré {len(imagenes_pending)} documentos por separado..."
-               )
-              responses = []
-              for i, img in enumerate(imagenes_pending, 1):
-               r = await process_message(
-                "image", img,
-                filename=f"documento_{i}.jpg",
-                conversation_history=history
-               )
-               responses.append(f"📄 *Documento {i}:*\n{r}")
-              response = "\n\n━━━━━━━━━━━━━━━\n\n".join(responses)
-    
-            elif opcion == "3":
-               # Páginas del mismo expediente — analizar la primera página principal
-               await send_text_message(sender,
-                "📑 Analizando el expediente completo...\n⏳ Dame un momento."
+
+            # Verificar si es respuesta a pregunta de imágenes (1, 2 o 3)
+            if user_text in ["1", "2", "3"] and f"{sender}_pending" in image_buffer:
+                imagenes_pending = image_buffer.pop(f"{sender}_pending")
+                response = await procesar_imagenes_pendientes(
+                    sender, imagenes_pending, user_text, history
                 )
-               # Usar primera imagen como principal
-               response = await process_message(
-                 "image", imagenes_pending[0],
-                 filename="expediente.jpg",
-                 conversation_history=history
-               )
-               response = (
-                f"📑 Analicé la página principal de tu expediente "
-                f"({len(imagenes_pending)} páginas recibidas).\n\n" + response
-                )
+                history.append({"role": "assistant", "content": response[:500]})
+                conversation_history[sender] = history[-10:]
+
             # Ignorar mensajes vacíos o confirmaciones cortas
-            if not user_text or user_text.lower() in PALABRAS_IGNORAR:
+            elif not user_text or user_text.lower() in PALABRAS_IGNORAR:
                 return PlainTextResponse("")
 
-            # Detectar si comparte ubicación por texto (ej: "estoy en Miraflores")
-            response = await process_message(
-                "text", user_text,
-                conversation_history=history
-            )
-            history.append({"role": "user", "content": user_text})
-            history.append({"role": "assistant", "content": response})
-            conversation_history[sender] = history[-10:]
+            else:
+                response = await process_message("text", user_text, conversation_history=history)
+                history.append({"role": "user", "content": user_text})
+                history.append({"role": "assistant", "content": response})
+                conversation_history[sender] = history[-10:]
 
         # ── UBICACIÓN ──────────────────────────────────────────
         elif msg_type == "location":
             lat = message.get("latitude")
             lon = message.get("longitude")
-            location_text = f"Mi ubicación es latitud {lat}, longitud {lon}"
             response = await process_message(
                 "text",
                 f"[El usuario compartió su ubicación GPS: lat={lat}, lon={lon}. "
@@ -166,11 +139,11 @@ async def receive_message(request: Request):
                 f"más cercana a esa ubicación en Lima Perú.]",
                 conversation_history=history
             )
-            history.append({"role": "user", "content": location_text})
+            history.append({"role": "user", "content": f"Mi ubicación: lat={lat}, lon={lon}"})
             history.append({"role": "assistant", "content": response})
             conversation_history[sender] = history[-10:]
 
-        # ── IMAGEN (con buffer para múltiples imágenes) ────────
+        # ── IMAGEN (con buffer) ────────────────────────────────
         elif msg_type == "image":
             now = time.time()
 
@@ -183,86 +156,64 @@ async def receive_message(request: Request):
             # Descargar y agregar al buffer
             media_bytes = await download_media(message["media_url"])
             image_buffer[sender].append(media_bytes)
-            print(f"📸 Imagen {len(image_buffer[sender])} agregada al buffer de {sender}")
+            image_buffer_time[sender] = time.time()
+            print(f"📸 Imagen {len(image_buffer[sender])} en buffer de {sender}")
 
             # Esperar por más imágenes
             await asyncio.sleep(BUFFER_SECONDS)
 
-            # Solo procesar si soy el último que actualizó el buffer
+            # Solo procesar si no llegó otra imagen después
             tiempo_desde_ultima = time.time() - image_buffer_time[sender]
-            if tiempo_desde_ultima >= BUFFER_SECONDS - 1:
-                imagenes = image_buffer.pop(sender, [])
-                image_buffer_time.pop(sender, None)
+            if tiempo_desde_ultima < BUFFER_SECONDS - 1:
+                return PlainTextResponse("")
 
-                if not imagenes:
-                    return PlainTextResponse("")
+            imagenes = image_buffer.pop(sender, [])
+            image_buffer_time.pop(sender, None)
 
-                print(f"🖼️ Procesando {len(imagenes)} imagen(es) de {sender}")
+            if not imagenes:
+                return PlainTextResponse("")
+
+            print(f"🖼️ Procesando {len(imagenes)} imagen(es) de {sender}")
 
             if len(imagenes) > 1:
-            # Guardar imágenes temporalmente y preguntar
-               image_buffer[f"{sender}_pending"] = imagenes
-               response = (
-               f"📎 Recibí *{len(imagenes)} imágenes*.\n\n"
-               f"Para analizarlas correctamente, dime:\n\n"
-             f"1️⃣ *Frente y reverso* del mismo documento\n"
-             f"2️⃣ *Documentos diferentes* (los analizo por separado)\n"
-             f"3️⃣ *Páginas del mismo expediente*\n\n"
-             f"Responde con el número 1, 2 o 3."
-              )
-                    # Si hay reverso, analizarlo también
-            if len(imagenes) >= 2:
-                        response_reverso = await process_message(
-                            "image",
-                            imagenes[1],
-                            filename="documento_reverso.jpg",
-                            conversation_history=history
-                        )
-                        response = response + \
-                            "\n\n━━━━━━━━━━━━━━━\n" \
-                            "🔄 *Análisis del reverso:*\n\n" + response_reverso
+                # Guardar y preguntar al usuario qué tipo de imágenes son
+                image_buffer[f"{sender}_pending"] = imagenes
+                response = (
+                    f"📎 Recibí *{len(imagenes)} imágenes*.\n\n"
+                    f"Para analizarlas correctamente, dime:\n\n"
+                    f"1️⃣ Son *frente y reverso* del mismo documento\n"
+                    f"2️⃣ Son *documentos diferentes*\n"
+                    f"3️⃣ Son *páginas del mismo expediente*\n\n"
+                    f"Responde con el número *1*, *2* o *3*."
+                )
             else:
-                    await send_text_message(
-                        sender,
-                        "📄 Analizando tu documento...\n⏳ Dame un momento."
-                    )
-                    response = await process_message(
-                        "image",
-                        imagenes[0],
-                        filename="documento.jpg",
-                        conversation_history=history
-                    )
+                await send_text_message(sender, "📄 Analizando tu documento...\n⏳ Dame un momento.")
+                response = await process_message(
+                    "image", imagenes[0],
+                    filename="documento.jpg",
+                    conversation_history=history
+                )
 
             history.append({"role": "assistant", "content": response[:500]})
             conversation_history[sender] = history[-10:]
-            else:
-                # Otra imagen llegó después, este handler no procesa
-                return PlainTextResponse("")
 
         # ── AUDIO ──────────────────────────────────────────────
         elif msg_type == "audio":
-            await send_text_message(
-                sender,
-                "🎙️ Escuchando tu mensaje de voz...\n⏳ Dame un segundo."
-            )
+            await send_text_message(sender, "🎙️ Escuchando tu nota de voz...\n⏳ Dame un segundo.")
             media_bytes = await download_media(message["media_url"])
             response = await process_message(
-                "audio",
-                media_bytes,
+                "audio", media_bytes,
                 filename=message["filename"],
                 conversation_history=history
             )
             history.append({"role": "assistant", "content": response[:500]})
             conversation_history[sender] = history[-10:]
 
-        # ── BIENVENIDA (primer mensaje o tipo desconocido) ─────
+        # ── BIENVENIDA ─────────────────────────────────────────
         else:
-            response = await process_message(
-                "unknown", "",
-                conversation_history=history
-            )
+            response = await process_message("unknown", "", conversation_history=history)
 
-        # Enviar respuesta si hay
+        # Enviar respuesta
         if response:
             await send_text_message(sender, response)
             print(f"✅ Respuesta enviada a {sender}")
@@ -270,17 +221,15 @@ async def receive_message(request: Request):
         return PlainTextResponse("")
 
     except Exception as e:
-        print(f"❌ Error procesando mensaje: {e}")
+        print(f"❌ Error: {e}")
         import traceback
         traceback.print_exc()
-        # Nunca dejar al usuario sin respuesta
         if sender:
             try:
                 await send_text_message(
                     sender,
-                    "⚠️ Tuve un problema procesando tu mensaje. "
-                    "Por favor intenta de nuevo o escríbeme qué documento "
-                    "necesitas apostillar."
+                    "⚠️ Tuve un problema procesando tu mensaje.\n"
+                    "Por favor intenta de nuevo o escríbeme qué documento necesitas apostillar."
                 )
             except Exception:
                 pass
