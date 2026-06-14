@@ -81,7 +81,66 @@ async def receive_message(request: Request):
         # ── TEXTO ──────────────────────────────────────────────
         if msg_type == "text":
             user_text = message["text"].strip()
-
+            
+            # Detectar respuesta a la pregunta de imágenes
+if user_text.strip() in ["1", "2", "3"] and \
+   f"{sender}_pending" in image_buffer:
+    
+    imagenes_pending = image_buffer.pop(f"{sender}_pending")
+    opcion = user_text.strip()
+    
+    if opcion == "1":
+        # Frente y reverso — analizar juntos como un solo documento
+        await send_text_message(sender,
+            "🔍 Analizando frente y reverso de tu documento...\n⏳ Dame un momento."
+        )
+        response_frente = await process_message(
+            "image", imagenes_pending[0],
+            filename="frente.jpg",
+            conversation_history=history
+        )
+        response_reverso = await process_message(
+            "image", imagenes_pending[1],
+            filename="reverso.jpg", 
+            conversation_history=history
+        )
+        response = (
+            "📄 *ANÁLISIS COMPLETO DEL DOCUMENTO*\n\n"
+            "🔼 *Cara frontal:*\n" + response_frente +
+            "\n\n━━━━━━━━━━━━━━━\n"
+            "🔽 *Cara posterior:*\n" + response_reverso
+        )
+    
+    elif opcion == "2":
+        # Documentos distintos — analizar uno por uno
+        await send_text_message(sender,
+            f"📋 Analizaré {len(imagenes_pending)} documentos por separado..."
+        )
+        responses = []
+        for i, img in enumerate(imagenes_pending, 1):
+            r = await process_message(
+                "image", img,
+                filename=f"documento_{i}.jpg",
+                conversation_history=history
+            )
+            responses.append(f"📄 *Documento {i}:*\n{r}")
+        response = "\n\n━━━━━━━━━━━━━━━\n\n".join(responses)
+    
+    elif opcion == "3":
+        # Páginas del mismo expediente — analizar la primera página principal
+        await send_text_message(sender,
+            "📑 Analizando el expediente completo...\n⏳ Dame un momento."
+        )
+        # Usar primera imagen como principal
+        response = await process_message(
+            "image", imagenes_pending[0],
+            filename="expediente.jpg",
+            conversation_history=history
+        )
+        response = (
+            f"📑 Analicé la página principal de tu expediente "
+            f"({len(imagenes_pending)} páginas recibidas).\n\n" + response
+        )
             # Ignorar mensajes vacíos o confirmaciones cortas
             if not user_text or user_text.lower() in PALABRAS_IGNORAR:
                 return PlainTextResponse("")
@@ -140,20 +199,17 @@ async def receive_message(request: Request):
 
                 print(f"🖼️ Procesando {len(imagenes)} imagen(es) de {sender}")
 
-                if len(imagenes) > 1:
-                    # Informar que recibió varias imágenes
-                    await send_text_message(
-                        sender,
-                        f"📎 Recibí *{len(imagenes)} imágenes* de tu documento. "
-                        f"Analizando ambas caras...\n⏳ Dame un momento."
-                    )
-                    # Procesar primera imagen (anverso) como principal
-                    response = await process_message(
-                        "image",
-                        imagenes[0],
-                        filename="documento_frente.jpg",
-                        conversation_history=history
-                    )
+            if len(imagenes) > 1:
+    # Guardar imágenes temporalmente y preguntar
+    image_buffer[f"{sender}_pending"] = imagenes
+    response = (
+        f"📎 Recibí *{len(imagenes)} imágenes*.\n\n"
+        f"Para analizarlas correctamente, dime:\n\n"
+        f"1️⃣ *Frente y reverso* del mismo documento\n"
+        f"2️⃣ *Documentos diferentes* (los analizo por separado)\n"
+        f"3️⃣ *Páginas del mismo expediente*\n\n"
+        f"Responde con el número 1, 2 o 3."
+    )
                     # Si hay reverso, analizarlo también
                     if len(imagenes) >= 2:
                         response_reverso = await process_message(
