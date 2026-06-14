@@ -183,51 +183,51 @@ async def process_message(
             "Por ejemplo: *'Necesito apostillar mi partida de nacimiento'*"
         )
     
-elif message_type == "image":
-    from app.validator import validar_documento_completo, formatear_resultado_whatsapp
-    import re
+    elif message_type == "image":
+     from app.validator import validar_documento_completo, formatear_resultado_whatsapp
+     import re
     
     # Analizar imagen con IA
-    vision_raw = await analyze_document_image(content)
-    if not vision_raw:
+     vision_raw = await analyze_document_image(content)
+     if not vision_raw:
         return "No pude analizar la imagen. ¿Puedes enviarla de nuevo con mejor iluminación?"
     
     # Extraer firmantes detectados del análisis
-    firmantes = re.findall(
+     firmantes = re.findall(
         r'(?:firmado?|firma|sello|certificado?|autorizado?)\s+(?:por\s+)?([A-ZÁÉÍÓÚ][A-ZÁÉÍÓÚ\s]{5,40})',
         vision_raw.upper()
-    )
-    firmantes = list(set([f.strip() for f in firmantes if len(f.strip()) > 8]))
+     )
+     firmantes = list(set([f.strip() for f in firmantes if len(f.strip()) > 8]))
     
     # Extraer tipo de documento
-    tipo_doc = "documento"
-    for tipo in ["partida de nacimiento", "título universitario", "acta", 
+     tipo_doc = "documento"
+     for tipo in ["partida de nacimiento", "título universitario", "acta", 
                  "certificado", "constancia", "poder notarial"]:
         if tipo in vision_raw.lower():
             tipo_doc = tipo
             break
     
     # Validar contra el dataset
-    validacion = validar_documento_completo(
+     validacion = validar_documento_completo(
         tipo_documento=tipo_doc,
         firmantes_detectados=firmantes,
         fecha_documento=None,
         entidad_emisora=None
-    )
+     )
     
     # Generar dos mensajes
-    msg1, msg2 = formatear_resultado_whatsapp(validacion, tipo_doc)
+     msg1, msg2 = formatear_resultado_whatsapp(validacion, tipo_doc)
     
     # Enriquecer con pasos del MRE
-    pasos = await chat_with_rutaq(
+     pasos = await chat_with_rutaq(
         f"El usuario tiene un {tipo_doc} para apostillar. "
         f"Validación: {validacion['porcentaje']}% aceptación. "
         f"Problemas: {validacion['rechazos']}. "
         f"Dale los pasos específicos para corregir y apostillar, en lenguaje simple.",
         conversation_history
-    )
+     )
     
-    return f"{msg1}\n\n{msg2}\n\n📋 *Qué hacer ahora:*\n{pasos}"
+     return f"{msg1}\n\n{msg2}\n\n📋 *Qué hacer ahora:*\n{pasos}"
     
     else:
         return (
