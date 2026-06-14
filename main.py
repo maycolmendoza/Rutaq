@@ -21,7 +21,11 @@ app = FastAPI(
 
 # Historial en memoria
 conversation_history: dict[str, list] = {}
-
+# Buffer para agrupar imágenes del mismo usuario
+import time
+image_buffer: dict[str, list] = {}
+image_buffer_time: dict[str, float] = {}
+BUFFER_SECONDS = 8  # espera 8 segundos antes de procesar
 
 @app.get("/")
 async def root():
