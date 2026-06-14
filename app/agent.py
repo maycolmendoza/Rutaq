@@ -183,80 +183,80 @@ async def process_message(
             "Por ejemplo: *'Necesito apostillar mi partida de nacimiento'*"
         )
     
-elif message_type == "image":
-    from app.validator import validar_documento, formatear_dos_mensajes
-    import re
+    elif message_type == "image":
+        from app.validator import validar_documento, formatear_dos_mensajes
+        import re
 
-    # 1. Analizar imagen con IA Vision
-    vision_raw = await analyze_document_image(content)
-    if not vision_raw:
-        return "No pude analizar la imagen. Intenta con mejor iluminación o resolución."
+       # 1. Analizar imagen con IA Vision
+        vision_raw = await analyze_document_image(content)
+        if not vision_raw:
+           return "No pude analizar la imagen. Intenta con mejor iluminación o resolución."
 
-    # 2. Extraer tipo de documento
-    tipo_doc = "documento"
-    tipos = [
+       # 2. Extraer tipo de documento
+        tipo_doc = "documento"
+        tipos = [
         "partida de nacimiento", "acta de nacimiento",
         "título universitario", "diploma", "certificado de estudios",
         "antecedentes policiales", "antecedentes penales",
         "poder notarial", "escritura pública",
         "constancia de trabajo", "certificado médico"
-    ]
-    for tipo in tipos:
-        if tipo in vision_raw.lower():
+       ]
+        for tipo in tipos:
+          if tipo in vision_raw.lower():
             tipo_doc = tipo
             break
 
-    # 3. Extraer fecha del documento del análisis
-    fecha_doc = None
-    fecha_patterns = [
+        # 3. Extraer fecha del documento del análisis
+        fecha_doc = None
+        fecha_patterns = [
         r'fecha[:\s]+(\d{1,2}[/\-\.]\d{1,2}[/\-\.]\d{4})',
         r'emitid[ao][:\s]+(\d{1,2}[/\-\.]\d{1,2}[/\-\.]\d{4})',
         r'(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})',
         r'(\d{4})',
     ]
-    for pat in fecha_patterns:
-        m = re.search(pat, vision_raw.lower())
-        if m:
-            fecha_doc = m.group(1)
-            break
+        for pat in fecha_patterns:
+            m = re.search(pat, vision_raw.lower())
+            if m:
+                fecha_doc = m.group(1)
+                break
 
-    # 4. Extraer firmantes detectados
-    firmantes_raw = re.findall(
+        # 4. Extraer firmantes detectados
+        firmantes_raw = re.findall(
         r'(?:firma(?:do)?|certificado?|autorizado?|sello)\s+(?:por\s+)?'
         r'([A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑa-záéíóúñ\s]{8,50})',
         vision_raw
-    )
-    # También buscar nombres en mayúsculas que parezcan personas
-    nombres_mayus = re.findall(
+        )
+        # También buscar nombres en mayúsculas que parezcan personas
+        nombres_mayus = re.findall(
         r'\b([A-ZÁÉÍÓÚÑ]{2,}\s+[A-ZÁÉÍÓÚÑ]{2,}(?:\s+[A-ZÁÉÍÓÚÑ]{2,})?)\b',
         vision_raw
-    )
-    firmantes = list(set(
+        )
+        firmantes = list(set(
         [f.strip() for f in firmantes_raw if len(f.strip()) > 8] +
         [n.strip() for n in nombres_mayus if len(n.strip()) > 8]
-    ))[:6]  # máximo 6 firmantes
+         ))[:6]  # máximo 6 firmantes
 
-    # 5. Validar contra el dataset
-    validacion = validar_documento(
+        # 5. Validar contra el dataset
+        validacion = validar_documento(
         firmantes_detectados=firmantes,
         fecha_documento=fecha_doc,
         tipo_documento=tipo_doc
     )
 
-    # 6. Generar dos mensajes
-    msg1, msg2 = formatear_dos_mensajes(validacion, tipo_doc)
+        # 6. Generar dos mensajes
+        msg1, msg2 = formatear_dos_mensajes(validacion, tipo_doc)
 
-    # 7. Agregar pasos a seguir del MRE
-    pasos = await chat_with_rutaq(
+        # 7. Agregar pasos a seguir del MRE
+        pasos = await chat_with_rutaq(
         f"El usuario tiene un '{tipo_doc}' para apostillar en el MRE. "
         f"Probabilidad de aceptación actual: {validacion['porcentaje']}%. "
         f"Errores encontrados: {[r.get('alerta','') for r in validacion['resultados'] if r.get('nivel')=='error']}. "
         f"En base a esto, dile los pasos concretos para corregir y apostillar, "
         f"en lenguaje simple y directo. Máximo 5 pasos.",
         conversation_history
-    )
+        )
 
-    return f"{msg1}\n{msg2}\n\n📋 *Pasos a seguir:*\n{pasos}"
+        return f"{msg1}\n{msg2}\n\n📋 *Pasos a seguir:*\n{pasos}"
     
     else:
         return (
