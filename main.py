@@ -14,6 +14,15 @@ from app.whatsapp import (
     download_media,
     send_text_message
 )
+from app.whatsapp import (
+    parse_incoming_message,
+    download_media,
+    send_text_message,
+    send_messenger_message,
+    download_messenger_media,
+    parse_messenger_message
+)
+
 
 app = FastAPI(
     title="RUTAQ API",
@@ -234,3 +243,82 @@ async def receive_message(request: Request):
             except Exception:
                 pass
         return PlainTextResponse("")
+
+
+# ── MESSENGER WEBHOOK ──────────────────────────────────────
+@app.get("/webhook/messenger")
+async def verify_messenger(request: Request):
+    """Verificación del webhook de Messenger"""
+    params = dict(request.query_params)
+    mode = params.get("hub.mode")
+    token = params.get("hub.verify_token")
+    challenge = params.get("hub.challenge")
+    verify_token = os.getenv("MESSENGER_VERIFY_TOKEN", "rutaq2026messenger")
+
+    if mode == "subscribe" and token == verify_token:
+        print("✅ Messenger webhook verificado")
+        return PlainTextResponse(challenge)
+    return PlainTextResponse("Error", status_code=403)
+
+
+@app.post("/webhook/messenger")
+async def receive_messenger(request: Request):
+    """Recibe mensajes de Messenger y los procesa con RUTAQ"""
+    sender = None
+    try:
+        payload = await request.json()
+        print(f"📨 Messenger webhook: {payload}")
+
+        message = parse_messenger_message(payload)
+        if not message:
+            return {"status": "ok"}
+
+        sender = message["from"]
+        msg_type = message["type"]
+        print(f"💬 Messenger de {sender} | Tipo: {msg_type}")
+
+        history = conversation_history.get(f"messenger_{sender}", [])
+        response = None
+
+        if msg_type == "text":
+            user_text = message["text"].strip()
+            if not user_text or user_text.lower() in PALABRAS_IGNORAR:
+                return {"status": "ok"}
+            response = await process_message("text", user_text, conversation_history=history)
+            history.append({"role": "user", "content": user_text})
+            history.append({"role": "assistant", "content": response})
+            conversation_history[f"messenger_{sender}"] = history[-10:]
+
+        elif msg_type == "image":
+            await send_messenger_message(sender, "📄 Analizando tu documento...\n⏳ Dame un momento.")
+            media_bytes = await download_messenger_media(message["media_url"])
+            response = await process_message("image", media_bytes, filename="documento.jpg", conversation_history=history)
+            history.append({"role": "assistant", "content": response[:500]})
+            conversation_history[f"messenger_{sender}"] = history[-10:]
+
+        elif msg_type == "audio":
+            await send_messenger_message(sender, "🎙️ Escuchando tu nota de voz...\n⏳ Dame un segundo.")
+            media_bytes = await download_messenger_media(message["media_url"])
+            response = await process_message("audio", media_bytes, filename="audio.mp4", conversation_history=history)
+            history.append({"role": "assistant", "content": response[:500]})
+            conversation_history[f"messenger_{sender}"] = history[-10:]
+
+        else:
+            response = await process_message("unknown", "", conversation_history=history)
+
+        if response:
+            await send_messenger_message(sender, response)
+            print(f"✅ Messenger respuesta enviada a {sender}")
+
+        return {"status": "ok"}
+
+    except Exception as e:
+        print(f"❌ Error Messenger: {e}")
+        import traceback
+        traceback.print_exc()
+        if sender:
+            try:
+                await send_messenger_message(sender, "⚠️ Tuve un problema. Por favor intenta de nuevo.")
+            except Exception:
+                pass
+        return {"status": "ok"}
