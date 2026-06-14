@@ -1,0 +1,1743 @@
+{
+
+  "por_entidad": {
+
+    "COLEGIO DE NOTARIOS DE AREQUIPA": {
+
+      "vigentes": [],
+
+      "historicos": [
+
+        {
+
+          "nombre": "ALEMAN PADRON GLENNY",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "ALEMAN PADRON GLENNY",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "ANGULO SUAREZ JAVIER",
+
+          "cargo": "DECANO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "LINARES RIVEROS MIGUEL ANGEL",
+
+          "cargo": "DECANO",
+
+          "periodo": "20190213-20201231"
+
+        },
+
+        {
+
+          "nombre": "LINARES RIVEROS MIGUEL ANGEL",
+
+          "cargo": "DECANO",
+
+          "periodo": "20210210-20230209"
+
+        },
+
+        {
+
+          "nombre": "TINAGEROS LOZA VICTOR",
+
+          "cargo": "DECANO",
+
+          "periodo": "20151201-20161231"
+
+        }
+
+      ]
+
+    },
+
+    "COLEGIO DE NOTARIOS DE LIMA": {
+
+      "vigentes": [],
+
+      "historicos": [
+
+        {
+
+          "nombre": "ALIAGA CABALLERO CESAR RAYMUNDO",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20170119-20181231"
+
+        },
+
+        {
+
+          "nombre": "ALMEIDA BRICEÑO JOSE FELICIANO",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "BECERRA SOSAYA MARCO ANTONIO",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "BENAVIDES DE LA PUENTE ALFONSO",
+
+          "cargo": "VICE DECANO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "CABRERA ZALDIVAR MERCEDES",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20161010-20171010"
+
+        },
+
+        {
+
+          "nombre": "DEL VILLAR PRADO MANUEL LUIS",
+
+          "cargo": "TESORERO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "FLORES ALVAN MARIA ELVIRA",
+
+          "cargo": "TESORERO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "GONZALEZ URIA OSCAR EDUARDO",
+
+          "cargo": "VICE DECANO",
+
+          "periodo": "20190117-20201231"
+
+        },
+
+        {
+
+          "nombre": "GONZALEZ-VIGIL BALBUENA PERCY",
+
+          "cargo": "VICE DECANO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "GUTIERREZ PRADEL MARIA SUSANA",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "JARA BRICEÑO GISELLA PATRICIA",
+
+          "cargo": "SECRETARIO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "JARA BRICEÑO GISELLA PATRICIA",
+
+          "cargo": "SECRETARIO",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "JARA BRICEÑO GISELLA PATRICIA",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "LEYTON ZARATE OSCAR",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "MEJIA HARO MARIA WALY",
+
+          "cargo": "SECRETARIO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "MEJIA HARO MARIA WALY",
+
+          "cargo": "SECRETARIO",
+
+          "periodo": "20170116-20181231"
+
+        },
+
+        {
+
+          "nombre": "MEJIA HARO MARIA WALY",
+
+          "cargo": "SECRETARIO",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "ODE PEREYRA SOFIA INES",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20210116-20230120"
+
+        },
+
+        {
+
+          "nombre": "SOLDEVILLA GALA RUBEN DARIO",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20170119-20181231"
+
+        },
+
+        {
+
+          "nombre": "TARAZONA ALVARADO FERNANDO",
+
+          "cargo": "TESORERO",
+
+          "periodo": "20190117-20201231"
+
+        },
+
+        {
+
+          "nombre": "TINAGEROS LOZA VICTOR RAUL",
+
+          "cargo": "TESORERO",
+
+          "periodo": "20170119-20181231"
+
+        },
+
+        {
+
+          "nombre": "TORRES ZEVALLOS FIDEL DJALMA",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "TORRES ZEVALLOS FIDEL DJALMA",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "TUCCIO VALVERDE JAIME GONZALO",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "VILLOTA CERNA MARCO ANTONIO",
+
+          "cargo": "SECRETARIO",
+
+          "periodo": "20190117-20201231"
+
+        },
+
+        {
+
+          "nombre": "YAÑEZ ASPILCUETA LOUDELVI ROSALIA",
+
+          "cargo": "VOCAL",
+
+          "periodo": "20210113-20230120"
+
+        }
+
+      ]
+
+    },
+
+    "COLEGIO DE NOTARIOS DE PIURA Y TUMBES": {
+
+      "vigentes": [],
+
+      "historicos": [
+
+        {
+
+          "nombre": "ALBERCA BARANDIARAN VIDAL AURELIO",
+
+          "cargo": "TESORERO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "ARISPE ALBURQUEQUE SYLVANA GANNINA",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20250114-20260114"
+
+        },
+
+        {
+
+          "nombre": "CORNO YORI ROBERTO",
+
+          "cargo": "VICEDECANO",
+
+          "periodo": "20250114-20260114"
+
+        },
+
+        {
+
+          "nombre": "DE LA CRUZ RIOS ALFONSO",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20170206-20190115"
+
+        },
+
+        {
+
+          "nombre": "HUACHILLO CEVALLOS JOSE ALBERTO",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20161010-20171010"
+
+        },
+
+        {
+
+          "nombre": "HUACHILLO CEVALLOS JOSE ALBERTO",
+
+          "cargo": "DECANO",
+
+          "periodo": "20170116-20190120"
+
+        },
+
+        {
+
+          "nombre": "HUACHILLO CEVALLOS JOSE ALBERTO",
+
+          "cargo": "DECANO",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "HUACHILLO CEVALLOS JOSE ALBERTO",
+
+          "cargo": "DECANO",
+
+          "periodo": "20250114-20260114"
+
+        },
+
+        {
+
+          "nombre": "LAU CHUFON CARLOS ENRIQUE",
+
+          "cargo": "VICE DECANO",
+
+          "periodo": "20170206-20190115"
+
+        },
+
+        {
+
+          "nombre": "NUÑEZ RICALDE CAROLINA MERCEDES",
+
+          "cargo": "SECRETARIO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "NUÑEZ RICALDE CAROLINA MERCEDES",
+
+          "cargo": "SECRETARIO",
+
+          "periodo": "20170116-20190115"
+
+        },
+
+        {
+
+          "nombre": "QUINDE RAZURI JUAN MANUEL ANTONIO",
+
+          "cargo": "DECANO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "QUINDE RAZURI JUAN MANUEL ANTONIO",
+
+          "cargo": "DECANO",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "QUINDE RAZURI JUAN MANUEL ANTONIO",
+
+          "cargo": "VICE DECANO",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "QUINDE RAZURI JUAN MANUEL ANTONIO",
+
+          "cargo": "VICE DECANO",
+
+          "periodo": "20210109-20221231"
+
+        },
+
+        {
+
+          "nombre": "QUIROGA LEON JUAN MANUEL",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "QUIROGA LEON JUAN MANUEL",
+
+          "cargo": "DECANO",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "QUIROGA LEON JUAN MANUEL",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "QUIROGA LEON JUAN MANUEL",
+
+          "cargo": "DECANO",
+
+          "periodo": "20210109-20221231"
+
+        },
+
+        {
+
+          "nombre": "RAMIREZ CARRANZA AMARILIS",
+
+          "cargo": "DECANO",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "RAMIREZ CARRANZA AMARILIS",
+
+          "cargo": "DECANO",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "SANTIVAÑEZ VEGA MARIA MIRTEA",
+
+          "cargo": "TESORERA",
+
+          "periodo": "20170206-20190115"
+
+        },
+
+        {
+
+          "nombre": "URBINA CHAVARRY LUIS ALBERTO",
+
+          "cargo": "FISCAL",
+
+          "periodo": "20210109-20221231"
+
+        }
+
+      ]
+
+    },
+
+    "JUNTA DE DECANOS DE LOS COLEGIOS DE NOTARIOS DEL PERU": {
+
+      "vigentes": [
+
+        {
+
+          "nombre": "COLLANTES BECERRA SANTOS ALEJANDRO",
+
+          "cargo": "PRESIDENTE",
+
+          "vigente_hasta": "20270226"
+
+        },
+
+        {
+
+          "nombre": "MUJICA BARREDA MARIA N J V",
+
+          "cargo": "REPRESENTANTE DEL PRESIDENTE",
+
+          "vigente_hasta": "20270226"
+
+        },
+
+        {
+
+          "nombre": "QUINTANILLA SALINAS RAMIRO WENCESLAO JUAN MARIA",
+
+          "cargo": "REPRESENTANTE DEL PRESIDENTE",
+
+          "vigente_hasta": "20270226"
+
+        },
+
+        {
+
+          "nombre": "VILCA MONTEAGUDO ELARD WILFREDO",
+
+          "cargo": "REPRESENTANTE DEL PRESIDENTE",
+
+          "vigente_hasta": "20270226"
+
+        }
+
+      ],
+
+      "historicos": [
+
+        {
+
+          "nombre": "BECERRA PALOMINO CARLOS  ENRIQUE",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "BECERRA PALOMINO CARLOS  ENRIQUE",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "BECERRA PALOMINO CARLOS  ENRIQUE",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20210227-20230226"
+
+        },
+
+        {
+
+          "nombre": "DIAZ DELGADO ROQUE ALBERTO",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20170119-20181231"
+
+        },
+
+        {
+
+          "nombre": "DIAZ DELGADO ROQUE ALBERTO",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "MUJICA BARREDA MARIA N J V",
+
+          "cargo": "EX PRESIDENTE",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "MUJICA BARREDA MARIA N J V",
+
+          "cargo": "EX PRESIDENTA",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "MUJICA BARREDA MARIA N J V",
+
+          "cargo": "EX PRESIDENTE",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "MUJICA BARREDA MARIA N J V",
+
+          "cargo": "REPRESENTANTE",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "MUJICA BARREDA MARIA N J V",
+
+          "cargo": "REPRESENTANTE",
+
+          "periodo": "20221106-20221203"
+
+        },
+
+        {
+
+          "nombre": "MUJICA BARREDA MARIA N J V",
+
+          "cargo": "REPRESENTANTE DEL PRESIDENTE",
+
+          "periodo": "20230318-20250226"
+
+        },
+
+        {
+
+          "nombre": "QUINTANILLA SALINAS RAMIRO WENCESLAO JUAN MARIA",
+
+          "cargo": "REPRESENTANTE",
+
+          "periodo": "20230318-20250226"
+
+        },
+
+        {
+
+          "nombre": "QUINTANILLA SALINAS RAMIRO WENCESLAO JUAN MARIA",
+
+          "cargo": "REPRESENTANTE DEL PRESIDENTE",
+
+          "periodo": "20230318-20250226"
+
+        },
+
+        {
+
+          "nombre": "ROMERO VALDIVIESO MARIO CESAR",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "ROMERO VALDIVIESO MARIO CESAR",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "VILLAVICENCIO CARDENAS FRANCISCO JAVIER",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20151201-20161231"
+
+        }
+
+      ]
+
+    },
+
+    "MINISTERIO DE EDUCACION": {
+
+      "vigentes": [],
+
+      "historicos": [
+
+        {
+
+          "nombre": "AGUILAR BERNIA LUIS TEODOSIO",
+
+          "cargo": "DIRECTOR",
+
+          "periodo": "20150101-20161231"
+
+        },
+
+        {
+
+          "nombre": "ALVAREZ VILLANUEVA RENATO OMAR",
+
+          "cargo": "LEGALIZADOR",
+
+          "periodo": "20230710-20231229"
+
+        },
+
+        {
+
+          "nombre": "BRETEL BIBUS LUIS ADRIAN",
+
+          "cargo": "PRESIDENTE",
+
+          "periodo": "20161012-20171012"
+
+        },
+
+        {
+
+          "nombre": "CARDENAS ALVAREZ BERTHA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "CARDENAS ALVAREZ BERTHA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "CAVEDUQUE CHAMORRO LILIA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "CHOQUE LARRAURI RAUL",
+
+          "cargo": "DIRECTOR EJECUTIVO",
+
+          "periodo": "20150227-20161231"
+
+        },
+
+        {
+
+          "nombre": "CORDOVA PEREZ ALBEZA ANA MARIA PATRICIA",
+
+          "cargo": "JEFE",
+
+          "periodo": "20161011-20171011"
+
+        },
+
+        {
+
+          "nombre": "CORDOVA QUISPE ESTEFANY FLOR",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20200102-20211231"
+
+        },
+
+        {
+
+          "nombre": "CORDOVA QUISPE ESTEFANY FLOR",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20200527-20211231"
+
+        },
+
+        {
+
+          "nombre": "CORDOVA QUISPE ESTEFANY FLOR",
+
+          "cargo": "FEDATARIA",
+
+          "periodo": "20220516-20220616"
+
+        },
+
+        {
+
+          "nombre": "CORDOVA QUISPE ESTEFANY FLOR",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20220617-20221230"
+
+        },
+
+        {
+
+          "nombre": "CRUZADO BENAVIDES CARLOS JHUMBERTO",
+
+          "cargo": "DIRECTOR REGIONAL DE EDUCACION",
+
+          "periodo": "20161010-20171010"
+
+        },
+
+        {
+
+          "nombre": "GOMEZ MARTINEZ JUAN RICARDO",
+
+          "cargo": "TECNICO",
+
+          "periodo": "20161011-20171011"
+
+        },
+
+        {
+
+          "nombre": "GOMEZ MARTINEZ JUAN RICARDO",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "GOMEZ MARTINEZ JUAN RICARDO",
+
+          "cargo": "TECNICO",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "GOMEZ MARTINEZ JUAN RICARDO",
+
+          "cargo": "LEGALIZADOR",
+
+          "periodo": "20240926-20251231"
+
+        },
+
+        {
+
+          "nombre": "HUAMAN VIDALON BELEN",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "HUAMAN VIDALON BELEN",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "LOPEZ CASANA PEDRO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20180725-20201231"
+
+        },
+
+        {
+
+          "nombre": "MIRANDA TRONCOS KILLA SUMAC SUSANA",
+
+          "cargo": "RESPONSABLE DE ETAC",
+
+          "periodo": "20161012-20171012"
+
+        },
+
+        {
+
+          "nombre": "MIRANDA TRONCOS KILLA SUMAC SUSANA",
+
+          "cargo": "DIRECTORA REGIONAL (E) DE EDUCACIÓN DE LIMA METROPOLITANA",
+
+          "periodo": "20161216-20171215"
+
+        },
+
+        {
+
+          "nombre": "MIRANDA TRONCOS KILLA SUMAC SUSANA",
+
+          "cargo": "DIRECTORA REGIONAL (E) DE EDUCACIÓN DE LIMA METROPOLITANA",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "PABLO MEDINA FLOR AIDEE",
+
+          "cargo": "DIRECTORA REGIONAL DE EDUCACION",
+
+          "periodo": "20141012-20171012"
+
+        },
+
+        {
+
+          "nombre": "PATIÑO BOTTINO MARTHA BEATRIZ",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "PINTO QUISPE ROCIO MILAGROS",
+
+          "cargo": "FEDATARIA",
+
+          "periodo": "20220516-20220616"
+
+        },
+
+        {
+
+          "nombre": "PINTO QUISPE ROCIO MILAGROS",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20220617-20221230"
+
+        },
+
+        {
+
+          "nombre": "PINTO QUISPE ROCIO MILAGROS",
+
+          "cargo": "LEGALIZADORA",
+
+          "periodo": "20221219-20231223"
+
+        },
+
+        {
+
+          "nombre": "PINTO QUISPE ROCIO MILAGROS",
+
+          "cargo": "LEGALIZADORA",
+
+          "periodo": "20231215-20241231"
+
+        },
+
+        {
+
+          "nombre": "PINTO QUISPE ROCIO MILAGROS",
+
+          "cargo": "LEGALIZADORA",
+
+          "periodo": "20240926-20251231"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20200101-20211231"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20200527-20211231"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20200528-20211231"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "FEDATARIO",
+
+          "periodo": "20220516-20220616"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "LEGALIZACIONES",
+
+          "periodo": "20220617-20221230"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "LEGALIZADOR",
+
+          "periodo": "20221219-20231229"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "LEGALIZADOR",
+
+          "periodo": "20231215-20240131"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "LEGALIZADOR",
+
+          "periodo": "20240102-20241231"
+
+        },
+
+        {
+
+          "nombre": "ROBLES GUARDAMINO ISRAEL",
+
+          "cargo": "LEGALIZADOR",
+
+          "periodo": "20240926-20251231"
+
+        },
+
+        {
+
+          "nombre": "TRIGOSO BARENTZEN MARIA AMELIA",
+
+          "cargo": "SECRETARIA NACIONAL DEL CONVENIO ANDRES BELLO",
+
+          "periodo": "20190902-20201231"
+
+        },
+
+        {
+
+          "nombre": "VILLALON DE LA CRUZ ROCIO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20151201-20161231"
+
+        },
+
+        {
+
+          "nombre": "VILLALON DE LA CRUZ ROCIO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20180406-20201231"
+
+        }
+
+      ]
+
+    },
+
+    "RENIEC": {
+
+      "vigentes": [],
+
+      "historicos": [
+
+        {
+
+          "nombre": "CHORRES ANCAJIMA CESAR",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20121007-20171007"
+
+        },
+
+        {
+
+          "nombre": "DEL CARPIO SANCHEZ JULIO CESAR",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20170214-20180214"
+
+        },
+
+        {
+
+          "nombre": "ELIAS SAYRITUPAC ELENA DEL PILAR",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20121007-20171007"
+
+        },
+
+        {
+
+          "nombre": "ESPINOZA ACOSTA DAVID CESAR",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "ESPINOZA SAAVEDRA EDDA ANFISSA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20170214-20180214"
+
+        },
+
+        {
+
+          "nombre": "ESTEBAN HUAMANI ORFELINA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "ESTEBAN PASACHE CARMEN LUCIA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "ESTEVES MONCADA ELVA AMPARO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "ESTRADA OTINIANO JIMMY ARTURO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "FAJARDO URCIA HERMELINDA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "FERNANDEZ FERNANDEZ SERGIO ORLANDO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "FERNANDEZ SUAREZ DIANA MILUSKA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "FLORES JIMENEZ EDY ROMAN",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "GALARZA CARDENAS GLAYDINAWA LUCY",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "GOMEZ MARTINEZ EDYTH",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "GOMEZ ZEVALLOS LADY CONSUELO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "GRADOS ARIAS KATHERINE",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "GUARDAPUCLLA QUISPE JAIME",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "GUEVARA CUADROS JANET YOLANDA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "HERRERA MONTAÑEZ LEYLA PAMELA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "HUAMAN SURCO YENS KEYNER",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "ILAVE VELASCO CAROLINE  BERTA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "ISUIZA MANIHUARI GUILLERMO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "JABE ACHO NEKER",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "JARA CARO PAUL WILLIAM",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LACHO CUNYA SILVIA NIDIA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LAVADO PANTOJA ABIGAIL ETIANA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LAVADO REYES ENVER VLADIMIR",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LECARNAQUE RODRIGUEZ JHEIMY SARETH",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LEIVA QUINTO LUIS AURELIO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LEON GONZALEZ ROCIO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20190213-20200213"
+
+        },
+
+        {
+
+          "nombre": "LINARES VENEGAS CESAR",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LIZARRAGA VALDIVIA LIOSKA GALIA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LIZARZABURO PEDRAZA ADRIANA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LOPEZ CRISOSTOMO FRANK  HENRY",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LOPEZ MAGUIÑA ELIANA ESTEFANI",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LÓPEZ RIVERA NORA LIZBETH",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LUCERA MORE ERICKA NOEMI",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "LUERA MOORE EDGAR JHONNY",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MACEDO GUEVARA MIREYA PATRICIA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MACHAHUAY ORE HENRY  PAUL",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MALLMA BERTINETTI JORGE LUIS",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MARTINEZ FERREYRA ISRAEL  JUAN",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MARTINEZ MORALES DENISSE MURIEL",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MARTOS CHUSHO LILIANA FABIOLA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MAURICIO RIVERA YESSICA",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MAXDEO QUISPE WILFREDO",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MEJIA DOROTEO EMILE  EDGARD",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20161020-20171020"
+
+        },
+
+        {
+
+          "nombre": "MEJIA DOROTEO EMILE  EDGARD",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20180406-20201231"
+
+        },
+
+        {
+
+          "nombre": "PACHECO QUIÑONES RENSO ULME",
+
+          "cargo": "CERTIFICADOR",
+
+          "periodo": "20170214-20180214"
+
+        }
+
+      ]
+
+    }
+
+  },
+
+  "total": 167,
+
+  "actualizado": "2026-06-13T20:50:09.842642"
+
+}
