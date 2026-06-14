@@ -1,174 +1,203 @@
 import os
 import json
 import base64
-import httpx
 from groq import Groq
-import google.generativeai as genai
 from pathlib import Path
 
 # ── Clientes ──────────────────────────────────────────────
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # ── Datos MRE ─────────────────────────────────────────────
 DATA_PATH = Path(__file__).parent.parent / "data" / "cadena_mre.json"
+AUTH_PATH = Path(__file__).parent.parent / "data" / "autoridades_mre.json"
+
 with open(DATA_PATH, "r", encoding="utf-8") as f:
     MRE_DATA = json.load(f)
 
-# ── System prompt principal ───────────────────────────────
+with open(AUTH_PATH, "r", encoding="utf-8") as f:
+    AUTORIDADES_DATA = json.load(f)
+
 SYSTEM_PROMPT = f"""
-Eres RUTAQ, un asistente digital del Ministerio de Relaciones Exteriores del Perú.
+Eres RUTAQ, asistente digital oficial del Ministerio de Relaciones Exteriores del Perú.
 Tu nombre significa "el que encuentra el camino" en quechua.
+Hablas español, quechua y aymara con fluidez natural.
 
-Tu misión es ayudar a ciudadanos peruanos y extranjeros a conocer los pasos exactos 
-para apostillar o legalizar sus documentos ANTES de ir al MRE, evitando rechazos en ventanilla.
+MISIÓN: Ayudar al ciudadano a conocer los pasos EXACTOS para apostillar o legalizar 
+documentos ANTES de ir al MRE, evitando el rechazo en ventanilla (tasa actual: 30%).
 
-DATOS OFICIALES DEL MRE QUE DEBES USAR:
+CADENA DE CERTIFICACIONES OFICIAL DEL MRE:
 {json.dumps(MRE_DATA, ensure_ascii=False, indent=2)}
 
+AUTORIDADES FIRMANTES REGISTRADAS EN CANCILLERÍA:
+{json.dumps(AUTORIDADES_DATA['por_entidad'], ensure_ascii=False, indent=2)}
+
 REGLAS CRÍTICAS:
-1. Responde SIEMPRE en el idioma del usuario (español o quechua)
-2. USA SOLO los datos del MRE proporcionados arriba - nunca inventes información
-3. Sé claro y simple - NUNCA uses términos técnicos como "cadena de certificación" 
-   En su lugar di: "los pasos que necesitas completar antes de ir al MRE"
-4. Siempre incluye: pasos numerados, tiempos estimados, costos en soles, direcciones exactas
-5. Si el documento tiene GRATUIDAD para peruanos, menciónalo claramente
-6. Resalta con ⚠️ los errores más frecuentes para ese tipo de documento
-7. Al final SIEMPRE pregunta: "¿Quieres que te genere un checklist para llevar?"
-8. Si el usuario habla en quechua, responde en quechua con traducción al español
+1. Detecta el idioma del usuario (español/quechua/aymara) y responde en ese idioma
+2. USA SOLO datos oficiales — nunca inventes información
+3. Lenguaje simple — nunca digas "cadena de certificación"
+4. Siempre incluye pasos numerados, tiempos, costos, direcciones
+5. Menciona GRATUIDAD para peruanos cuando aplique
+6. Da siempre un PORCENTAJE DE PROBABILIDAD DE ACEPTACIÓN
+7. Si menciona distrito/ciudad, indica la oficina más cercana
+8. Ignora mensajes cortos como "ok", "bien", "gracias" — no respondas nada
 
 FORMATO DE RESPUESTA:
-📄 *Tipo de documento detectado:* [nombre]
-⏱️ *Tiempo total estimado:* [X días hábiles]
-💰 *Costo total:* S/. [monto] [o GRATIS si aplica]
+📄 *Documento:* [tipo]
+⏱️ *Tiempo total:* [X días hábiles]
+💰 *Costo total:* S/. [monto]
 
-*Pasos que debes completar:*
-1️⃣ [Paso 1 con dirección y tiempo]
-2️⃣ [Paso 2 con dirección y tiempo]
-3️⃣ MRE - Jr. Lampa 545 (paso final)
+*Pasos antes de ir al MRE:*
+1️⃣ [Paso con entidad, dirección, tiempo]
+2️⃣ [Siguiente paso]
+3️⃣ MRE — Jr. Lampa 545 ✅
 
-⚠️ *Errores frecuentes que debes evitar:*
-• [error 1]
-• [error 2]
+⚠️ *Errores frecuentes:*
+- [error específico]
 
-¿Quieres que te genere un checklist para llevar? Responde *SÍ* y te lo envío.
+✅ *Probabilidad de aceptación: XX%*
+
+¿Quieres un checklist personalizado? Responde *SÍ*
 """
 
-SYSTEM_PROMPT_VISION = """
-Eres RUTAQ, asistente del Ministerio de Relaciones Exteriores del Perú.
-Analiza la imagen del documento que te envían y determina:
+SYSTEM_PROMPT_VISION = f"""
+Eres RUTAQ, asistente oficial del MRE del Perú. Analiza documentos para apostilla.
 
-1. QUÉ TIPO de documento es (título universitario, acta de nacimiento, etc.)
-2. QUÉ FIRMAS O SELLOS están presentes (describe lo que ves)
-3. QUÉ PODRÍA FALTAR según los requisitos del MRE
+AUTORIDADES FIRMANTES VIGENTES REGISTRADAS EN CANCILLERÍA:
+{json.dumps(AUTORIDADES_DATA['por_entidad'], ensure_ascii=False, indent=2)}
 
-Responde en este formato exacto:
-📄 *Documento detectado:* [tipo]
+Al analizar la imagen:
+1. IDENTIFICA el tipo de documento
+2. DETECTA firmas, sellos, códigos QR presentes
+3. VERIFICA si las firmas corresponden a autoridades registradas
+4. CALCULA porcentaje de probabilidad de aceptación
+5. INDICA exactamente qué falta
 
-✅ *Lo que veo en tu documento:*
-• [elemento presente 1]
-• [elemento presente 2]
+FORMATO OBLIGATORIO:
+📄 *Documento detectado:* [tipo exacto]
 
-⚠️ *Lo que podría faltar para el MRE:*
-• [elemento faltante 1]
-• [elemento faltante 2]
+🔍 *Análisis de firmas y sellos:*
+✅ [lo que SÍ tiene]
+❌ [lo que le FALTA]
 
-📋 *Mi recomendación:*
-[Próximo paso concreto que debe tomar]
+📊 *Probabilidad de aceptación en MRE:* [X]%
+[Explicación breve]
 
-Sé honesto si no puedes determinar algo con certeza desde la imagen.
+📋 *Pasos antes del MRE:*
+1️⃣ [paso con dirección]
+2️⃣ [siguiente]
+
+⚠️ *Riesgo principal de rechazo:* [el más crítico]
 """
 
 
 async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.ogg") -> str:
-    """Transcribe audio con Whisper via Groq"""
-    transcription = groq_client.audio.transcriptions.create(
-        file=(filename, audio_bytes, "audio/ogg"),
-        model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
-        language="es",
-        response_format="text"
-    )
-    return transcription
+    import io
+    from pydub import AudioSegment
+    try:
+        audio = AudioSegment.from_file(io.BytesIO(audio_bytes))
+        mp3_buffer = io.BytesIO()
+        audio.export(mp3_buffer, format="mp3")
+        mp3_bytes = mp3_buffer.getvalue()
+        print(f"🎙️ Audio convertido: {len(mp3_bytes)} bytes")
+        transcription = groq_client.audio.transcriptions.create(
+            file=("audio.mp3", mp3_bytes, "audio/mpeg"),
+            model=os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3"),
+            language="es",
+            response_format="text"
+        )
+        print(f"🎙️ Transcrito: {transcription}")
+        return transcription
+    except Exception as e:
+        print(f"❌ Error transcripción: {e}")
+        return None
 
 
 async def analyze_document_image(image_bytes: bytes) -> str:
-    """Analiza imagen de documento con Gemini Vision"""
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    image_part = {
-        "mime_type": "image/jpeg",
-        "data": base64.b64encode(image_bytes).decode("utf-8")
-    }
-    response = model.generate_content([
-        SYSTEM_PROMPT_VISION,
-        image_part,
-        "Analiza este documento y dime qué tipo es y qué podría faltar para apostillarlo en el MRE del Perú."
-    ])
-    return response.text
+    img_b64 = base64.b64encode(image_bytes).decode("utf-8")
+    try:
+        response = groq_client.chat.completions.create(
+            model="meta-llama/llama-4-scout-17b-16e-instruct",
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": SYSTEM_PROMPT_VISION
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:image/jpeg;base64,{img_b64}"}
+                        }
+                    ]
+                }
+            ],
+            max_tokens=1500,
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"❌ Error visión: {e}")
+        return f"No pude analizar la imagen: {e}"
 
 
 async def chat_with_rutaq(user_message: str, conversation_history: list = None) -> str:
-    """Responde a mensajes de texto con Groq Llama 3.1"""
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-    
     if conversation_history:
-        messages.extend(conversation_history[-6:])  # últimos 3 turnos
-    
+        messages.extend(conversation_history[-6:])
     messages.append({"role": "user", "content": user_message})
-    
     response = groq_client.chat.completions.create(
-        model=os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile"),
+        model=os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
         messages=messages,
-        max_tokens=1024,
-        temperature=0.3,  # bajo para respuestas precisas y consistentes
+        max_tokens=1200,
+        temperature=0.2,
     )
     return response.choices[0].message.content
 
 
 async def process_message(
     message_type: str,
-    content: str | bytes,
+    content,
     filename: str = None,
     conversation_history: list = None
 ) -> str:
-    """
-    Router principal de RUTAQ.
-    Detecta tipo de mensaje y lo procesa con el modelo correcto.
-    
-    En producción MRE: cambiar Groq por Ollama local (solo cambiar variables de entorno)
-    """
-    
     if message_type == "text":
         return await chat_with_rutaq(content, conversation_history)
-    
+
     elif message_type == "audio":
-        # 1. Transcribir con Whisper
         transcribed = await transcribe_audio(content, filename or "audio.ogg")
-        # 2. Procesar texto transcrito con Llama
-        response = await chat_with_rutaq(
-            f"[El usuario envió una nota de voz que dice]: {transcribed}",
-            conversation_history
-        )
-        return f"🎙️ _Escuché:_ \"{transcribed}\"\n\n{response}"
-    
+        if transcribed:
+            response = await chat_with_rutaq(
+                f"[El usuario envió una nota de voz que dice]: {transcribed}",
+                conversation_history
+            )
+            return f"🎙️ _Escuché:_ \"{transcribed}\"\n\n{response}"
+        else:
+            return (
+                "🎙️ No pude escuchar bien tu nota de voz.\n\n"
+                "¿Puedes escribirme qué documento necesitas apostillar?\n"
+                "Ejemplo: *'Necesito apostillar mi partida de nacimiento'*"
+            )
+
     elif message_type == "image":
-        # Analizar imagen con Gemini Vision
         vision_analysis = await analyze_document_image(content)
-        # Enriquecer con contexto MRE via Llama
         enriched = await chat_with_rutaq(
-            f"El usuario envió una foto de su documento. El análisis visual dice: {vision_analysis}. "
-            f"Basándote en esto y en los datos del MRE, dale la ruta completa para apostillar.",
+            f"El usuario envió una foto de su documento. "
+            f"Análisis visual: {vision_analysis}. "
+            f"Brinda orientación completa con porcentaje de aceptación.",
             conversation_history
         )
         return enriched
-    
+
     else:
         return (
-            "Hola, soy *RUTAQ* 🇵🇪\n\n"
-            "Te ayudo a saber exactamente qué pasos seguir para apostillar o legalizar "
-            "tu documento en el Ministerio de Relaciones Exteriores.\n\n"
-            "Puedes:\n"
-            "• ✍️ Escribirme qué documento necesitas apostillar\n"
-            "• 📸 Enviarme una foto de tu documento\n"
-            "• 🎙️ Mandarme una nota de voz\n\n"
+            "¡Hola! Soy *RUTAQ* 🇵🇪\n"
+            "_\"El que encuentra el camino\"_\n\n"
+            "Soy el asistente digital del MRE. Te ayudo a apostillar "
+            "sin ser rechazado en ventanilla.\n\n"
+            "*Puedes:*\n"
+            "✍️ Escribirme en español, quechua o aymara\n"
+            "📸 Enviarme una foto de tu documento\n"
+            "🎙️ Mandarme una nota de voz\n"
+            "📄 Subir el PDF de tu documento\n\n"
             "¿Qué documento necesitas apostillar hoy?"
         )
