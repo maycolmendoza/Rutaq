@@ -106,22 +106,31 @@ async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.ogg") -> s
 
 
 async def analyze_document_image(image_bytes: bytes) -> str:
-    """Analiza imagen de documento con Groq Vision (Llama 3.2)"""
     img_b64 = base64.b64encode(image_bytes).decode("utf-8")
-    response = groq_client.chat.completions.create(
-        model="meta-llama/llama-4-scout-17b-16e-instruct",
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": SYSTEM_PROMPT_VISION + "\n\nAnaliza este documento para apostillar en el MRE del Perú."},
-                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{img_b64}"}}
-                ]
-            }
-        ],
-        max_tokens=1024,
-    )
-    return response.choices[0].message.content
+    try:
+        response = groq_client.chat.completions.create(
+            model="meta-llama/llama-4-scout-17b-16e-instruct",
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": SYSTEM_PROMPT_VISION
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:image/jpeg;base64,{img_b64}"}
+                        }
+                    ]
+                }
+            ],
+            max_tokens=1500,
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"❌ Error visión: {e}")
+        return None
 
 
 async def chat_with_rutaq(user_message: str, conversation_history: list = None) -> str:
